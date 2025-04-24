@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 function App() {
   function handleClick() {
-    console.log("Hello World");
+    console.log('Hello World');
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh">
+    <div className="flex min-h-svh flex-col items-center justify-center">
       <Button onClick={handleClick}>Hello World</Button>
     </div>
   );
