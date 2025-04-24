@@ -1,0 +1,19 @@
+{
+  "name": "aschatclient",
+  "version": "1.0.0",
+  "description": "Client for the chat project that I will build using NestJS, TypeScript, and React.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asumaran/aschatclient.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asumaran/aschatclient/issues"
+  },
+  "homepage": "https://github.com/asumaran/aschatclient#readme"
+}
