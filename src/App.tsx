@@ -11,8 +11,10 @@ function Channels() {
     queryFn: getChannels,
   });
   return (
-    <div>
-      <h2>List of Channels</h2>
+    <div className="p-10">
+      <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
+        List of Channels
+      </h2>
       {data && (
         <ul>
           {data.map((m) => (
@@ -32,8 +34,10 @@ function Members() {
     queryFn: getMembers,
   });
   return (
-    <div>
-      <h2>List of Members</h2>
+    <div className="p-10">
+      <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
+        List of Members
+      </h2>
       {data && (
         <ul>
           {data.map((m) => (
@@ -56,9 +60,15 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="mx-auto flex">
-        <Channels />
-        <Members />
+      <div className="flex">
+        <div className="m-auto flex w-7xl">
+          <div>
+            <Channels />
+          </div>
+          <div className="grow">
+            <Members />
+          </div>
+        </div>
       </div>
     </QueryClientProvider>
   );
