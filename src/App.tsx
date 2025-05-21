@@ -11,7 +11,7 @@ function Channels() {
     queryFn: getChannels,
   });
   return (
-    <div className="p-10">
+    <div className="p-5">
       <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
         List of Channels
       </h2>
@@ -34,7 +34,7 @@ function Members() {
     queryFn: getMembers,
   });
   return (
-    <div className="p-10">
+    <div className="p-5">
       <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
         List of Members
       </h2>
@@ -55,17 +55,24 @@ function Members() {
   );
 }
 
+function Messages() {
+  return <div className="p-5">messages</div>;
+}
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex">
+      <div className="@container/main p-10">
         <div className="m-auto flex w-7xl">
-          <div>
+          <div className="m-5 border-1">
             <Channels />
           </div>
-          <div className="grow">
+          <div className="m-5 flex-1 border-1">
+            <Messages />
+          </div>
+          <div className="m-5 border-1">
             <Members />
           </div>
         </div>
