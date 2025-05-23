@@ -1,8 +1,11 @@
 import { getChannels } from '@/api';
+import { useChatContext } from '@/useChatContext';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 const ChannelList = () => {
+  const { activeChannelId, setActiveChannelId } = useChatContext();
+
   const { data } = useQuery({
     queryKey: ['channels'],
     queryFn: getChannels,
@@ -11,7 +14,7 @@ const ChannelList = () => {
   function onChannelClickHandler(channelId: number) {
     return (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
-      console.log({ channelId });
+      setActiveChannelId(channelId);
     };
   }
 
@@ -24,7 +27,11 @@ const ChannelList = () => {
         <ul>
           {data.map((m) => (
             <li>
-              <a href={`#${m.id}`} onClick={onChannelClickHandler(m.id)}>
+              <a
+                className={m.id === activeChannelId ? 'font-bold' : ''}
+                href={`#${m.id}`}
+                onClick={onChannelClickHandler(m.id)}
+              >
                 {m.name}
               </a>
             </li>
