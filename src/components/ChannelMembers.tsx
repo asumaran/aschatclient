@@ -3,7 +3,7 @@ import { useChatContext } from '@/useChatContext';
 import { useQuery } from '@tanstack/react-query';
 
 const ChannelMembers = () => {
-  const { activeChannelId } = useChatContext();
+  const { activeChannelId, activeUserId } = useChatContext();
 
   const { data } = useQuery<
     {
@@ -26,7 +26,7 @@ const ChannelMembers = () => {
         <ul>
           {data.map((m) => (
             <li key={m.id}>
-              <span>
+              <span className={m.id === activeUserId ? 'font-bold' : ''}>
                 {m.user.name} {'<'}
                 {m.user.email}
                 {'>'}

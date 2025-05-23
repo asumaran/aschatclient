@@ -4,6 +4,8 @@ import { createContext, useContext } from 'react';
 interface ChatContextType {
   activeChannelId: number;
   setActiveChannelId: React.Dispatch<React.SetStateAction<number>>;
+  activeUserId: number;
+  setActiveUserId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ChatContext = createContext<ChatContextType | undefined>(
