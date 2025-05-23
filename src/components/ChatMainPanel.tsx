@@ -14,7 +14,7 @@ const ChatMainPanel = () => {
     setActiveChannelMemberList,
   } = useChatContext();
 
-  const { data } = useQuery<
+  useQuery<
     {
       id: number;
       name: string;
@@ -25,21 +25,16 @@ const ChatMainPanel = () => {
     queryKey: ['members', activeChannelId],
     queryFn: async () => {
       const members = await getMembers(activeChannelId);
-      console.log('seteamos member list');
       setActiveChannelMemberList(members);
       return members;
     },
   });
-
-  console.log('data', data);
 
   const currentUserIsMemberOfActiveChannel = activeChannelMemberList.find(
     (m) => {
       return m.id === activeUserId;
     },
   );
-
-  console.log({ currentUserIsMemberOfActiveChannel });
 
   return (
     <div className="flex h-full">
