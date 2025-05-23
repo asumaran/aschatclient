@@ -20,7 +20,7 @@ const ChatMessages = () => {
   }, [activeChannelId]);
 
   return messages.length
-    ? messages.map((m) => <ChatMessage content={m.content} />)
+    ? messages.map((m, i) => <ChatMessage key={i} content={m.content} />)
     : 'No messages';
 };
 

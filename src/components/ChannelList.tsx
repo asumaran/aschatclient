@@ -26,7 +26,7 @@ const ChannelList = () => {
       {data && (
         <ul>
           {data.map((m) => (
-            <li>
+            <li key={m.id}>
               <a
                 className={m.id === activeChannelId ? 'font-bold' : ''}
                 href={`#${m.id}`}
