@@ -4,7 +4,7 @@ export interface MemberShip {
   id: number;
   name: string;
   email: string;
-  user: { name: string; email: string };
+  user: { id: number; name: string; email: string };
 }
 
 // Puedes agregar aquí los valores globales que necesites

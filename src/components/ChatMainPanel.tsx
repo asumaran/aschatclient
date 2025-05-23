@@ -32,7 +32,7 @@ const ChatMainPanel = () => {
 
   const currentUserIsMemberOfActiveChannel = activeChannelMemberList.find(
     (m) => {
-      return m.id === activeUserId;
+      return m.user.id === activeUserId;
     },
   );
 
