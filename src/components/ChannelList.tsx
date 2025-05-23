@@ -1,0 +1,38 @@
+import { getChannels } from '@/api';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+
+const ChannelList = () => {
+  const { data } = useQuery({
+    queryKey: ['channels'],
+    queryFn: getChannels,
+  });
+
+  function onChannelClickHandler(channelId: number) {
+    return (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      console.log({ channelId });
+    };
+  }
+
+  return (
+    <div className="p-5">
+      <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
+        List of Channels
+      </h2>
+      {data && (
+        <ul>
+          {data.map((m) => (
+            <li>
+              <a href={`#${m.id}`} onClick={onChannelClickHandler(m.id)}>
+                {m.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default ChannelList;
