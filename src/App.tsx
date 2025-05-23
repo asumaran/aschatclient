@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-query';
 import { getChannels, getMembers } from './api';
 import MessageForm from '@/components/MessageForm';
+import ChatMessages from './components/ChatMessages';
 
 function Channels() {
   const { data } = useQuery({
@@ -67,7 +68,14 @@ function App() {
             <Channels />
           </div>
           <div className="m-5 flex-1 border-1">
-            <MessageForm />
+            <div className="flex h-full flex-col p-5">
+              <div className="flex-1 border-1 p-5">
+                <ChatMessages />
+              </div>
+              <div className="mt-5 border-1 p-5">
+                <MessageForm />
+              </div>
+            </div>
           </div>
           <div className="m-5 border-1">
             <Members />

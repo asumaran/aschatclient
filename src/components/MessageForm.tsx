@@ -26,24 +26,19 @@ export default function MessageForm() {
   }
 
   return (
-    <div className="flex h-full flex-col p-5">
-      <div className="flex-1 border-1 p-5">Messages here</div>
-      <div className="mt-5 border-1 p-5">
-        <form onSubmit={handleSubmit}>
-          <div className="flex">
-            <div className="flex-1 pr-5">
-              <Input
-                placeholder="Add a new message…"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </div>
-            <div>
-              <Button type="submit">Send</Button>
-            </div>
-          </div>
-        </form>
+    <form onSubmit={handleSubmit}>
+      <div className="flex">
+        <div className="flex-1 pr-5">
+          <Input
+            placeholder="Add a new message…"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </div>
+        <div>
+          <Button type="submit">Send</Button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }
