@@ -20,3 +20,22 @@ export async function getChannels() {
     return { error: 'Error fetching channels' };
   }
 }
+
+export async function joinChannel(userId: number, channelId: number) {
+  const data = await fetch('http://localhost:4000/channelmemberships', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      userId,
+      channelId,
+    }),
+  });
+
+  if (data.ok) {
+    return await data.json();
+  } else {
+    console.error('Error joining channel');
+  }
+}
