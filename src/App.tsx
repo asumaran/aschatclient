@@ -1,39 +1,8 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query';
-import { getMembers } from './api';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import MessageForm from '@/components/MessageForm';
 import ChatMessages from './components/ChatMessages';
 import ChannelList from './components/ChannelList';
-
-function Members() {
-  const { data } = useQuery<{ name: string; email: string }[]>({
-    queryKey: ['members'],
-    queryFn: getMembers,
-  });
-  return (
-    <div className="p-5">
-      <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
-        List of Members
-      </h2>
-      {data && (
-        <ul>
-          {data.map((m) => (
-            <li>
-              <span>
-                {m.name} {'<'}
-                {m.email}
-                {'>'}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
+import ChannelMembers from './components/ChannelMembers';
 
 const queryClient = new QueryClient();
 
@@ -56,7 +25,7 @@ function App() {
                 </div>
               </div>
               <div id="c" className="m-5 border-1">
-                <Members />
+                <ChannelMembers />
               </div>
             </div>
           </div>
