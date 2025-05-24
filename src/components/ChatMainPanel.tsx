@@ -12,6 +12,7 @@ const ChatMainPanel = () => {
     activeChannelId,
     activeUserId,
     setActiveChannelMemberList,
+    channelList,
   } = useChatContext();
 
   useQuery<
@@ -36,12 +37,15 @@ const ChatMainPanel = () => {
     },
   );
 
+  const currentChannel = channelList.find((c) => c.id === activeChannelId);
+
   return (
     <div className="flex h-full">
       {currentUserIsMemberOfActiveChannel ? (
         <>
           <div className="flex flex-1 flex-col p-5 pr-0">
             <div className="flex-1 overflow-auto border-1 p-5">
+              <h2 className="font-bold">#{currentChannel?.name}</h2>
               <ChatMessages />
             </div>
             <div className="mt-5 border-1 p-5">

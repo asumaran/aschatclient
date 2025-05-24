@@ -1,5 +1,5 @@
 import { useState, ReactNode } from 'react';
-import { ChatContext, MemberShip } from './useChatContext';
+import { ChatContext, MemberShip, Channel } from './useChatContext';
 
 export function ChatProvider({ children }: { children: ReactNode }) {
   const [activeChannelId, setActiveChannelId] = useState(1); // TODO: Use a proper default.
@@ -7,6 +7,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [activeChannelMemberList, setActiveChannelMemberList] = useState<
     MemberShip[]
   >([]);
+  const [channelList, setChannelList] = useState<Channel[]>([]);
 
   return (
     <ChatContext.Provider
@@ -17,6 +18,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         setActiveUserId,
         activeChannelMemberList,
         setActiveChannelMemberList,
+        channelList,
+        setChannelList,
       }}
     >
       {children}

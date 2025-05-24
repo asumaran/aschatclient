@@ -7,6 +7,11 @@ export interface MemberShip {
   user: { id: number; name: string; email: string };
 }
 
+export interface Channel {
+  id: number;
+  name: string;
+}
+
 // Puedes agregar aquí los valores globales que necesites
 interface ChatContextType {
   activeChannelId: number;
@@ -17,6 +22,8 @@ interface ChatContextType {
   setActiveChannelMemberList: React.Dispatch<
     React.SetStateAction<MemberShip[]>
   >;
+  channelList: Channel[];
+  setChannelList: React.Dispatch<React.SetStateAction<Channel[]>>;
 }
 
 export const ChatContext = createContext<ChatContextType | undefined>(

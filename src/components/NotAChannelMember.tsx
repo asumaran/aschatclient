@@ -4,7 +4,7 @@ import { joinChannel } from '@/api';
 import { useChatContext } from '@/useChatContext';
 
 const NotAChannelMember = () => {
-  const { activeChannelId, activeUserId } = useChatContext();
+  const { activeChannelId, activeUserId, channelList } = useChatContext();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -30,10 +30,14 @@ const NotAChannelMember = () => {
     mutation.mutate({ channelId: activeChannelId, memberId: activeUserId });
   }
 
+  const currentChannel = channelList.find((c) => c.id === activeChannelId);
+
   return (
     <div className="flex-1 place-content-center p-5 text-center">
       <p className="mb-5">
-        You're not a member of this channel. Would you like to join?
+        You're not a member of{' '}
+        {currentChannel ? `#${currentChannel.name}` : '…'}. Would you like to
+        join?
       </p>
       <Button onClick={handleClick}>
         {mutation.isPending ? 'Joining Channel…' : 'Join Channel'}
