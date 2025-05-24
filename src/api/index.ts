@@ -46,6 +46,29 @@ export async function getChannelMessages(activeChannelId: number) {
   return await response.json();
 }
 
+export async function sendMessage(
+  content: string,
+  channelId: number,
+  channelMemberId: number,
+) {
+  const response = await fetch(apiUrl('messages'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      content,
+      channelId,
+      channelMemberId,
+    }),
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    console.error('Error sending message');
+    throw new Error('Failed to send message');
+  }
+}
+
 export async function leaveChannel(memberId: number, channelId: number) {
   console.log({ memberId, channelId });
   const response = await fetch(

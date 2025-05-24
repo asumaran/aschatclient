@@ -1,13 +1,28 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { apiUrl } from '@/utils/api';
+import { sendMessage } from '@/api';
 import { useChatContext } from '@/useChatContext';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function MessageForm() {
   const { activeChannelId, activeUserId, activeChannelMemberList } =
     useChatContext();
   const queryClient = useQueryClient();
+
+  const sendMessageMutation = useMutation({
+    mutationFn: ({
+      content,
+      channelId,
+      channelMemberId,
+    }: {
+      content: string;
+      channelId: number;
+      channelMemberId: number;
+    }) => sendMessage(content, channelId, channelMemberId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['messages'] });
+    },
+  });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -15,11 +30,12 @@ export default function MessageForm() {
     const currTarget = e.currentTarget;
     const formData = new FormData(e.currentTarget);
 
-    if (!(formData.get('message') as string)?.trim()) {
+    const messageContent = formData.get('message') as string;
+    if (!messageContent?.trim()) {
       return;
     }
 
-    // Obenemos el member ID usando el userID
+    // Get the Member ID using the user ID
     const member = activeChannelMemberList.find(
       (m) => m.userId === activeUserId,
     );
@@ -29,18 +45,11 @@ export default function MessageForm() {
       return;
     }
 
-    await fetch(apiUrl('messages'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        content: formData.get('message'),
-        channelId: activeChannelId,
-        channelMemberId: member.id, // The endpoint wants the member Id and not the user ID
-      }),
+    sendMessageMutation.mutate({
+      content: messageContent,
+      channelId: activeChannelId,
+      channelMemberId: member.id,
     });
-
-    // Invalidate messages query to refresh the message list
-    queryClient.invalidateQueries({ queryKey: ['messages'] });
 
     currTarget.reset();
   }
