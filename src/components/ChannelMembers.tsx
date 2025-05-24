@@ -1,4 +1,5 @@
 import { useChatContext } from '@/useChatContext';
+import ChannelMember from './ChannelMember';
 
 const ChannelMembers = () => {
   const { activeUserId, activeChannelMemberList } = useChatContext();
@@ -12,11 +13,7 @@ const ChannelMembers = () => {
         <ul>
           {activeChannelMemberList.map((m) => (
             <li key={m.id}>
-              <span className={m.id === activeUserId ? 'font-bold' : ''}>
-                {m.user.name} {'<'}
-                {m.user.email}
-                {'>'}
-              </span>
+              <ChannelMember member={m} isActive={activeUserId === m.user.id} />
             </li>
           ))}
         </ul>

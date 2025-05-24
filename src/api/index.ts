@@ -46,3 +46,19 @@ export async function getChannelMessages(activeChannelId) {
   );
   return await response.json();
 }
+
+export async function leaveChannel(memberId: number, channelId: number) {
+  console.log({ memberId, channelId });
+  const response = await fetch(
+    `http://localhost:4000/channelmemberships/user/${memberId}/channel/${channelId}`,
+    {
+      method: 'DELETE',
+    },
+  );
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    console.error('Error leaving channel');
+  }
+}
