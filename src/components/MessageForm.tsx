@@ -1,15 +1,17 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 import { apiUrl } from '@/utils/api';
+import { useChatContext } from '@/useChatContext';
 
 export default function MessageForm() {
-  const [message, setMessage] = useState('');
+  const { activeChannelId } = useChatContext();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!message.trim()) {
+    const formData = new FormData(e.currentTarget);
+
+    if (!(formData.get('message') as string)?.trim()) {
       return;
     }
 
@@ -17,24 +19,18 @@ export default function MessageForm() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        content: message,
-        channelId: 1,
-        channelMemberId: 1,
+        content: formData.get('message'),
+        channelId: activeChannelId,
+        channelMemberId: 37, // The endpoint wants the member Id and not the user ID
       }),
     });
-
-    setMessage('');
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex">
         <div className="flex-1 pr-5">
-          <Input
-            placeholder="Add a new message…"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
+          <Input placeholder="Add a new message…" name="message" />
         </div>
         <div>
           <Button type="submit">Send</Button>
