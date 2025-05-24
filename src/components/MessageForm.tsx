@@ -4,14 +4,26 @@ import { apiUrl } from '@/utils/api';
 import { useChatContext } from '@/useChatContext';
 
 export default function MessageForm() {
-  const { activeChannelId } = useChatContext();
+  const { activeChannelId, activeUserId, activeChannelMemberList } =
+    useChatContext();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    const currTarget = e.currentTarget;
     const formData = new FormData(e.currentTarget);
 
     if (!(formData.get('message') as string)?.trim()) {
+      return;
+    }
+
+    // Obenemos el member ID usando el userID
+    const member = activeChannelMemberList.find(
+      (m) => m.userId === activeUserId,
+    );
+
+    if (member === undefined) {
+      console.error('Member not found');
       return;
     }
 
@@ -21,9 +33,11 @@ export default function MessageForm() {
       body: JSON.stringify({
         content: formData.get('message'),
         channelId: activeChannelId,
-        channelMemberId: 37, // The endpoint wants the member Id and not the user ID
+        channelMemberId: member.id, // The endpoint wants the member Id and not the user ID
       }),
     });
+
+    currTarget.reset();
   }
 
   return (

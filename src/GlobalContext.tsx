@@ -3,7 +3,7 @@ import { ChatContext, MemberShip, Channel } from './useChatContext';
 
 export function ChatProvider({ children }: { children: ReactNode }) {
   const [activeChannelId, setActiveChannelId] = useState(1); // TODO: Use a proper default.
-  const [activeUserId, setActiveUserId] = useState(1);
+  const [activeUserId, setActiveUserId] = useState(1); // TODO: Use active user ID as default.
   const [activeChannelMemberList, setActiveChannelMemberList] = useState<
     MemberShip[]
   >([]);

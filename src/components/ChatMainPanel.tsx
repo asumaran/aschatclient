@@ -1,4 +1,4 @@
-import { useChatContext } from '@/useChatContext';
+import { MemberShip, useChatContext } from '@/useChatContext';
 import ChannelMembers from './ChannelMembers';
 import ChatMessages from './ChatMessages';
 import MessageForm from './MessageForm';
@@ -15,14 +15,7 @@ const ChatMainPanel = () => {
     channelList,
   } = useChatContext();
 
-  useQuery<
-    {
-      id: number;
-      name: string;
-      email: string;
-      user: { name: string; email: string };
-    }[]
-  >({
+  useQuery<MemberShip[]>({
     queryKey: ['members', activeChannelId],
     queryFn: async () => {
       const members = await getMembers(activeChannelId);

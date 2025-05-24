@@ -2,8 +2,8 @@ import { createContext, useContext } from 'react';
 
 export interface MemberShip {
   id: number;
-  name: string;
-  email: string;
+  userId: number;
+  channelId: number;
   user: { id: number; name: string; email: string };
 }
 
