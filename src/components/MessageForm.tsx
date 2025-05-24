@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { apiUrl } from '@/utils/api';
 
 export default function MessageForm() {
   const [message, setMessage] = useState('');
@@ -12,7 +13,7 @@ export default function MessageForm() {
       return;
     }
 
-    await fetch('http://localhost:4000/messages', {
+    await fetch(apiUrl('messages'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
