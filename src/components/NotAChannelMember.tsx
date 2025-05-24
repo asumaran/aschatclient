@@ -1,10 +1,11 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from './ui/button';
 import { joinChannel } from '@/api';
 import { useChatContext } from '@/useChatContext';
 
 const NotAChannelMember = () => {
   const { activeChannelId, activeUserId } = useChatContext();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: ({
@@ -16,6 +17,11 @@ const NotAChannelMember = () => {
     }) => {
       const result = joinChannel(memberId, channelId);
       return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['members', activeChannelId],
+      });
     },
   });
 

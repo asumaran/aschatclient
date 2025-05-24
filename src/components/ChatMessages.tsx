@@ -1,23 +1,15 @@
-import { useEffect, useState } from 'react';
+import { getChannelMessages } from '@/api';
 import ChatMessage from './ChatMessage';
 import { useChatContext } from '@/useChatContext';
+import { useQuery } from '@tanstack/react-query';
 
 const ChatMessages = () => {
   const { activeChannelId } = useChatContext();
 
-  const [messages, setMessages] = useState<{ content: string }[]>([]);
-
-  useEffect(() => {
-    async function getChannelMessages() {
-      const response = await fetch(
-        `http://localhost:4000/messages/${activeChannelId}`,
-      );
-      const msgs = await response.json();
-      setMessages(msgs);
-    }
-
-    getChannelMessages();
-  }, [activeChannelId]);
+  const { data: messages = [] } = useQuery<{ content: string }[]>({
+    queryKey: ['messages', activeChannelId],
+    queryFn: () => getChannelMessages(activeChannelId),
+  });
 
   return messages.length
     ? messages.map((m, i) => <ChatMessage key={i} content={m.content} />)

@@ -39,3 +39,10 @@ export async function joinChannel(userId: number, channelId: number) {
     console.error('Error joining channel');
   }
 }
+
+export async function getChannelMessages(activeChannelId) {
+  const response = await fetch(
+    `http://localhost:4000/messages/${activeChannelId}`,
+  );
+  return await response.json();
+}
