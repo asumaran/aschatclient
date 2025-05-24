@@ -2,10 +2,12 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { apiUrl } from '@/utils/api';
 import { useChatContext } from '@/useChatContext';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function MessageForm() {
   const { activeChannelId, activeUserId, activeChannelMemberList } =
     useChatContext();
+  const queryClient = useQueryClient();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,6 +38,9 @@ export default function MessageForm() {
         channelMemberId: member.id, // The endpoint wants the member Id and not the user ID
       }),
     });
+
+    // Invalidate messages query to refresh the message list
+    queryClient.invalidateQueries({ queryKey: ['messages'] });
 
     currTarget.reset();
   }
