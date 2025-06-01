@@ -80,7 +80,7 @@ const SignInForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} autoFocus={true} />
+                  <Input {...field} autoFocus={true} autoComplete="email" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,7 +94,11 @@ const SignInForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" />
+                  <Input
+                    {...field}
+                    type="password"
+                    autoComplete="current-password"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
