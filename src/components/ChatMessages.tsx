@@ -16,6 +16,8 @@ const ChatMessages = () => {
       return getChannelMessages(activeChannelId);
     },
     enabled: activeChannelId !== undefined,
+    refetchInterval: 5000, // Poll every 5 seconds
+    refetchIntervalInBackground: false, // Only poll when window is in focus
   });
 
   return messages.length
