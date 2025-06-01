@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root';
+import { Route as SignoutImport } from './routes/signout';
 import { Route as ChatImport } from './routes/chat';
 import { Route as AboutImport } from './routes/about';
 import { Route as IndexImport } from './routes/index';
 
 // Create/Update Routes
+
+const SignoutRoute = SignoutImport.update({
+  id: '/signout',
+  path: '/signout',
+  getParentRoute: () => rootRoute,
+} as any);
 
 const ChatRoute = ChatImport.update({
   id: '/chat',
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatImport;
       parentRoute: typeof rootRoute;
     };
+    '/signout': {
+      id: '/signout';
+      path: '/signout';
+      fullPath: '/signout';
+      preLoaderRoute: typeof SignoutImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -69,12 +83,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
   '/about': typeof AboutRoute;
   '/chat': typeof ChatRoute;
+  '/signout': typeof SignoutRoute;
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
   '/about': typeof AboutRoute;
   '/chat': typeof ChatRoute;
+  '/signout': typeof SignoutRoute;
 }
 
 export interface FileRoutesById {
@@ -82,14 +98,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute;
   '/about': typeof AboutRoute;
   '/chat': typeof ChatRoute;
+  '/signout': typeof SignoutRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/about' | '/chat';
+  fullPaths: '/' | '/about' | '/chat' | '/signout';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/about' | '/chat';
-  id: '__root__' | '/' | '/about' | '/chat';
+  to: '/' | '/about' | '/chat' | '/signout';
+  id: '__root__' | '/' | '/about' | '/chat' | '/signout';
   fileRoutesById: FileRoutesById;
 }
 
@@ -97,12 +114,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AboutRoute: typeof AboutRoute;
   ChatRoute: typeof ChatRoute;
+  SignoutRoute: typeof SignoutRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ChatRoute: ChatRoute,
+  SignoutRoute: SignoutRoute,
 };
 
 export const routeTree = rootRoute
@@ -117,7 +136,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/chat"
+        "/chat",
+        "/signout"
       ]
     },
     "/": {
@@ -128,6 +148,9 @@ export const routeTree = rootRoute
     },
     "/chat": {
       "filePath": "chat.tsx"
+    },
+    "/signout": {
+      "filePath": "signout.tsx"
     }
   }
 }
