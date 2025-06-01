@@ -25,10 +25,10 @@ function RouteComponent() {
   return (
     <div className="@container/main">
       <div className="m-auto flex">
-        <div className="m-5 mr-0 border-1">
+        <div className="m-2 mr-0 border-1">
           <ChannelList />
         </div>
-        <div className="m-5 flex-1 border-1">
+        <div className="m-2 flex-1 border-1">
           <ChatMainPanel />
         </div>
       </div>

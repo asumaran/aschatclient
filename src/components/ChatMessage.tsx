@@ -24,7 +24,7 @@ const ChatMessage = (props: Props) => {
   }
 
   return (
-    <div className="flex gap-3 py-2">
+    <div className="flex gap-3 rounded-md p-2 py-2 hover:bg-gray-50">
       <div>
         <Avatar>
           <AvatarImage src="" />

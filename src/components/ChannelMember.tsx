@@ -1,5 +1,4 @@
 import { MemberShip, useChatContext } from '@/useChatContext';
-import { Button } from './ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { leaveChannel } from '@/api';
 
@@ -33,27 +32,28 @@ const ChannelMember = ({
   });
 
   function handleLeaveClick() {
-    console.log('x');
-    mutation.mutate({ memberId: activeUserId, channelId: activeChannelId });
+    if (
+      typeof activeUserId === 'number' &&
+      typeof activeChannelId === 'number'
+    ) {
+      mutation.mutate({ memberId: activeUserId, channelId: activeChannelId });
+    } else {
+      console.error('activeUserId or activeChannelId is undefined');
+    }
   }
 
   return (
-    <div className="flex items-center border-b p-2">
-      <div className="mr-2">
-        <span className={isActive ? 'font-bold' : ''}>
-          <span className="mr-1">{member.user.name}</span>
-          <span className="font-mono text-xs text-gray-400 lowercase">
-            {'<'}
-            {member.user.email}
-            {'>'}
-          </span>
+    <div className="rounded-sm p-2 pt-0 pb-0 hover:bg-gray-100">
+      <span className={isActive ? 'font-bold' : ''}>
+        <span className="text-sm" title={member.user.email}>
+          {member.user.name}
         </span>
-      </div>
+      </span>
       {isActive ? (
         <div>
-          <Button variant="link" onClick={handleLeaveClick}>
+          <a href="#" className="text-xs" onClick={handleLeaveClick}>
             Leave channel
-          </Button>
+          </a>
         </div>
       ) : null}
     </div>

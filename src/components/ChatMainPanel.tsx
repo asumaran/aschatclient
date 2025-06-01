@@ -42,16 +42,16 @@ const ChatMainPanel = () => {
     <div className="flex h-full">
       {currentUserIsMemberOfActiveChannel ? (
         <>
-          <div className="flex flex-1 flex-col p-5 pr-0">
-            <div className="flex-1 overflow-auto border-1 p-5">
+          <div className="flex flex-1 flex-col p-2 pr-0">
+            <div className="flex-1 overflow-auto border-1 p-2">
               <h2 className="font-bold">#{currentChannel?.name}</h2>
               <ChatMessages />
             </div>
-            <div className="mt-5 border-1 p-5">
+            <div className="mt-2 border-1 p-2">
               <MessageForm />
             </div>
           </div>
-          <div className="m-5 border-1">
+          <div className="m-2 border-1">
             <ChannelMembers />
           </div>
         </>

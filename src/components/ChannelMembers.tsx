@@ -5,8 +5,8 @@ const ChannelMembers = () => {
   const { activeUserId, activeChannelMemberList } = useChatContext();
 
   return (
-    <div className="p-5">
-      <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
+    <div className="p-2">
+      <h2 className="mb-2 border-b pb-2 text-2xl font-medium">
         List of Members
       </h2>
       {activeChannelMemberList.length ? (

@@ -18,8 +18,6 @@ const ChatMessages = () => {
     enabled: activeChannelId !== undefined,
   });
 
-  console.log('activeChannelMemberList', activeChannelMemberList);
-
   return messages.length
     ? messages.map((m, i) => (
         <ChatMessage
