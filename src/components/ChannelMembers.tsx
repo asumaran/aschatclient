@@ -6,9 +6,7 @@ const ChannelMembers = () => {
 
   return (
     <div className="p-2">
-      <h2 className="mb-2 border-b pb-2 text-2xl font-medium">
-        List of Members
-      </h2>
+      <h2 className="mb-2 border-b pb-2 text-2xl font-medium">Members</h2>
       {activeChannelMemberList.length ? (
         <ul>
           {activeChannelMemberList.map((m) => (

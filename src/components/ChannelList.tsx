@@ -27,9 +27,7 @@ const ChannelList = () => {
 
   return (
     <div className="p-5">
-      <h2 className="mb-5 border-b pb-2 text-2xl font-medium">
-        List of Channels
-      </h2>
+      <h2 className="mb-5 border-b pb-2 text-2xl font-medium">Channels</h2>
       {channelList.length > 0 && (
         <ul>
           {channelList.map((m) => (
