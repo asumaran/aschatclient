@@ -7,7 +7,7 @@ export const Route = createFileRoute('/')({
 
 function Index() {
   return (
-    <div className="@container/main p-10">
+    <div className="@container/main">
       <div className="m-auto w-xs">
         <SignInForm />
       </div>

@@ -23,7 +23,7 @@ export const Route = createFileRoute('/chat')({
 
 function RouteComponent() {
   return (
-    <div className="@container/main p-10">
+    <div className="@container/main">
       <div className="m-auto flex">
         <div className="m-5 mr-0 border-1">
           <ChannelList />
