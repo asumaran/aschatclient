@@ -16,6 +16,7 @@ import { signIn } from '@/api';
 import { useState } from 'react';
 import { Alert, AlertDescription } from './ui/alert';
 import { useChatContext } from '@/useChatContext';
+import { useNavigate } from '@tanstack/react-router';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -27,6 +28,7 @@ const formSchema = z.object({
 const SignInForm = () => {
   const { setActiveUserAccessToken, setActiveUserId } = useChatContext();
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,6 +44,8 @@ const SignInForm = () => {
     onSuccess: (data) => {
       setActiveUserAccessToken(data.access_token);
       setActiveUserId(data.userId);
+      setErrorMessage('');
+      navigate({ to: '/chat' });
     },
     onError: (error) => {
       console.error('Sign in failed:', error);
