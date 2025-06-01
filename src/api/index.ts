@@ -108,3 +108,18 @@ export async function signIn(email: string, password: string) {
     throw new Error(res.message);
   }
 }
+
+export async function deleteMessage(messageId: number) {
+  const response = await fetch(apiUrl(`/messages/${messageId}`), {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const res = await response.json();
+    console.error('Error deleting message');
+    throw new Error(res.message);
+  }
+}
