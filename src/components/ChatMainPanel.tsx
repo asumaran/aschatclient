@@ -18,10 +18,11 @@ const ChatMainPanel = () => {
   useQuery<MemberShip[]>({
     queryKey: ['members', activeChannelId],
     queryFn: async () => {
-      const members = await getMembers(activeChannelId);
+      const members = await getMembers(activeChannelId!);
       setActiveChannelMemberList(members);
       return members;
     },
+    enabled: activeChannelId !== undefined && activeUserId !== undefined,
   });
 
   const currentUserIsMemberOfActiveChannel = activeChannelMemberList.find(
@@ -31,6 +32,11 @@ const ChatMainPanel = () => {
   );
 
   const currentChannel = channelList.find((c) => c.id === activeChannelId);
+
+  // If there is no user or no active channel, render nothing.
+  if (!activeChannelId || !activeUserId) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex h-full">

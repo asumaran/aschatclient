@@ -12,6 +12,8 @@ const ChannelList = () => {
     queryFn: async () => {
       const channels = await getChannels();
       setChannelList(channels);
+      // Set the first channel in the list as active.
+      setActiveChannelId(channels[0].id);
       return channels;
     },
   });

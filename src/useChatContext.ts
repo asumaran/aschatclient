@@ -14,10 +14,10 @@ export interface Channel {
 
 // Puedes agregar aquí los valores globales que necesites
 interface ChatContextType {
-  activeChannelId: number;
-  setActiveChannelId: React.Dispatch<React.SetStateAction<number>>;
-  activeUserId: number;
-  setActiveUserId: React.Dispatch<React.SetStateAction<number>>;
+  activeChannelId?: number;
+  setActiveChannelId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  activeUserId?: number;
+  setActiveUserId: React.Dispatch<React.SetStateAction<number | undefined>>;
   activeChannelMemberList: MemberShip[];
   setActiveChannelMemberList: React.Dispatch<
     React.SetStateAction<MemberShip[]>
