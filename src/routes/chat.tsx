@@ -1,8 +1,23 @@
 import ChannelList from '@/components/ChannelList';
 import ChatMainPanel from '@/components/ChatMainPanel';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/chat')({
+  beforeLoad: async ({ location }) => {
+    // Check authentication from localStorage
+    const activeUserId = localStorage.getItem('activeUserId');
+    const activeUserToken = localStorage.getItem('activeUserToken');
+
+    if (!activeUserId || !activeUserToken) {
+      throw redirect({
+        to: '/',
+        search: {
+          // Opcional: guardar la ruta a la que quería acceder
+          redirect: location.href,
+        },
+      });
+    }
+  },
   component: RouteComponent,
 });
 
