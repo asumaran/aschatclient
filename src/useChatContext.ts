@@ -24,6 +24,8 @@ interface ChatContextType {
   >;
   channelList: Channel[];
   setChannelList: React.Dispatch<React.SetStateAction<Channel[]>>;
+  activeUserToken: string;
+  setActiveUserAccessToken: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const ChatContext = createContext<ChatContextType | undefined>(

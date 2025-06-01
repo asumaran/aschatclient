@@ -64,13 +64,12 @@ export async function sendMessage(
   if (response.ok) {
     return await response.json();
   } else {
-    console.error('Error sending message');
-    throw new Error('Failed to send message');
+    const res = await response.json();
+    throw new Error(res.message);
   }
 }
 
 export async function leaveChannel(memberId: number, channelId: number) {
-  console.log({ memberId, channelId });
   const response = await fetch(
     apiUrl(`/channelmemberships/user/${memberId}/channel/${channelId}`),
     {
@@ -82,5 +81,21 @@ export async function leaveChannel(memberId: number, channelId: number) {
     return await response.json();
   } else {
     console.error('Error leaving channel');
+  }
+}
+
+export async function signIn(email: string, password: string) {
+  const response = await fetch(apiUrl('/auth/login'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const res = await response.json();
+    console.error('Error sign in');
+    throw new Error(res.message);
   }
 }

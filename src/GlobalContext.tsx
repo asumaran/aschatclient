@@ -8,6 +8,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     MemberShip[]
   >([]);
   const [channelList, setChannelList] = useState<Channel[]>([]);
+  const [activeUserToken, setActiveUserAccessToken] = useState('');
 
   return (
     <ChatContext.Provider
@@ -20,6 +21,8 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         setActiveChannelMemberList,
         channelList,
         setChannelList,
+        activeUserToken,
+        setActiveUserAccessToken,
       }}
     >
       {children}
