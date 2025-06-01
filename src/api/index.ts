@@ -41,9 +41,18 @@ export async function joinChannel(userId: number, channelId: number) {
   }
 }
 
+export interface ChannelMessage {
+  channelId: number;
+  channelMemberId: number;
+  content: string;
+  createdAt: string;
+  id: number;
+  updatedAt: string;
+}
+
 export async function getChannelMessages(activeChannelId: number) {
   const response = await fetch(apiUrl(`/messages/${activeChannelId}`));
-  return await response.json();
+  return (await response.json()) as ChannelMessage[];
 }
 
 export async function sendMessage(
