@@ -13,7 +13,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       {activeUserToken ? (
         <div className="@container/main p-10">
-          <div className="m-auto flex w-7xl">
+          <div className="m-auto flex">
             <div className="m-5 mr-0 border-1">
               <ChannelList />
             </div>
