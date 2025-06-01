@@ -25,7 +25,7 @@ const formSchema = z.object({
 });
 
 const SignInForm = () => {
-  const { setActiveUserAccessToken } = useChatContext();
+  const { setActiveUserAccessToken, setActiveUserId } = useChatContext();
   const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -41,9 +41,7 @@ const SignInForm = () => {
       signIn(email, password),
     onSuccess: (data) => {
       setActiveUserAccessToken(data.access_token);
-      console.log('Sign in successful:', data);
-      // Aquí puedes manejar el éxito del login, como guardar el token
-      // o redirigir al usuario
+      setActiveUserId(data.userId);
     },
     onError: (error) => {
       console.error('Sign in failed:', error);
