@@ -2,6 +2,7 @@ import { ChannelMessage, getChannelMessages } from '@/api';
 import ChatMessage from './ChatMessage';
 import { useChatContext } from '@/useChatContext';
 import { useQuery } from '@tanstack/react-query';
+import BotMessage from './BotMessage';
 
 const ChatMessages = () => {
   const { activeChannelId, activeChannelMemberList } = useChatContext();
@@ -21,13 +22,21 @@ const ChatMessages = () => {
   });
 
   return messages.length
-    ? messages.map((m, i) => (
-        <ChatMessage
-          key={i}
-          message={m}
-          activeChannelMemberList={activeChannelMemberList}
-        />
-      ))
+    ? messages.map((m, i) => {
+        return m.type === 'bot' ? (
+          <BotMessage
+            key={i}
+            message={m}
+            activeChannelMemberList={activeChannelMemberList}
+          />
+        ) : (
+          <ChatMessage
+            key={i}
+            message={m}
+            activeChannelMemberList={activeChannelMemberList}
+          />
+        );
+      })
     : 'No messages';
 };
 

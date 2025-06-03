@@ -48,6 +48,11 @@ export interface ChannelMessage {
   createdAt: string;
   id: number;
   updatedAt: string;
+  type: 'bot' | 'user';
+  author: {
+    id: number;
+    name: string;
+  };
 }
 
 export async function getChannelMessages(activeChannelId: number) {

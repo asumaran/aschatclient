@@ -5,6 +5,11 @@ import TimeAgo from 'timeago-react';
 import { Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  formatDate,
+  getInitials,
+  getMemberFromMemberList,
+} from '@/utils/utils';
 
 interface Props {
   message: ChannelMessage;
@@ -73,32 +78,5 @@ const ChatMessage = (props: Props) => {
     </div>
   );
 };
-
-function formatDate(isoDate: string) {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZoneName: 'short',
-  }).format(new Date(isoDate));
-}
-
-function getMemberFromMemberList(
-  activeChannelMemberList: MemberShip[],
-  memberId: number,
-) {
-  return activeChannelMemberList.find((m) => m.id === memberId);
-}
-
-function getInitials(name: string) {
-  return name
-    .split(' ')
-    .map((name) => name[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-}
 
 export default ChatMessage;
