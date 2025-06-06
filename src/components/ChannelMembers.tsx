@@ -1,5 +1,6 @@
 import { useChatContext } from '@/useChatContext';
 import ChannelMember from './ChannelMember';
+import ChannelMemberBot from './ChannelMemberBot';
 
 const ChannelMembers = () => {
   const { activeUserId, activeChannelMemberList } = useChatContext();
@@ -12,13 +13,13 @@ const ChannelMembers = () => {
           {activeChannelMemberList.map((m) => {
             return (
               <li key={m.id}>
-                {m.user ? (
+                {'user' in m && m.user !== null ? (
                   <ChannelMember
                     member={m}
                     isActive={activeUserId === m.user.id}
                   />
                 ) : (
-                  'bot'
+                  <ChannelMemberBot member={m} />
                 )}
               </li>
             );

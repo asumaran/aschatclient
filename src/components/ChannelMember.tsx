@@ -42,6 +42,12 @@ const ChannelMember = ({
     }
   }
 
+  // Type guard to ensure we have a user membership
+  if (!('user' in member)) {
+    console.error('Expected user membership but got different membership type');
+    return null;
+  }
+
   return (
     <div className="rounded-sm p-2 pt-0 pb-0 hover:bg-gray-100">
       <span className={isActive ? 'font-bold' : ''}>

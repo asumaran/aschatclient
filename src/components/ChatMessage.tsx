@@ -44,6 +44,12 @@ const ChatMessage = (props: Props) => {
     return;
   }
 
+  // Type guard to ensure we have a user membership
+  if (!('user' in member)) {
+    console.error('Expected user membership but got different membership type');
+    return null;
+  }
+
   function handleDeleteClick() {
     deleteMessageMutation.mutate(messageId);
   }

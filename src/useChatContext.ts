@@ -1,11 +1,25 @@
 import { createContext, useContext } from 'react';
 
-export interface MemberShip {
+// Base interface for common properties
+interface BaseMemberShip {
   id: number;
-  userId: number;
   channelId: number;
+}
+
+// User membership with email
+interface UserMemberShip extends BaseMemberShip {
+  userId: number;
   user: { id: number; name: string; email: string };
 }
+
+// Bot membership without email
+interface BotMemberShip extends BaseMemberShip {
+  botId: number;
+  bot: { id: number; name: string };
+}
+
+// Union type for MemberShip
+export type MemberShip = UserMemberShip | BotMemberShip;
 
 export interface Channel {
   id: number;
