@@ -27,7 +27,7 @@ const ChatMainPanel = () => {
 
   const currentUserIsMemberOfActiveChannel = activeChannelMemberList.find(
     (m) => {
-      return m.user.id === activeUserId;
+      return m.type === 'user' && m.member.id === activeUserId;
     },
   );
 

@@ -37,11 +37,16 @@ export default function MessageForm() {
 
     // Get the Member ID using the user ID
     const member = activeChannelMemberList.find(
-      (m) => m.userId === activeUserId,
+      (m) => m.type === 'user' && m.member.id === activeUserId,
     );
 
     if (member === undefined) {
       console.error('Member not found');
+      return;
+    }
+
+    if (activeChannelId === undefined) {
+      console.error('Active channel ID is undefined');
       return;
     }
 

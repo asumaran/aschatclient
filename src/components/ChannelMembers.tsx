@@ -10,16 +10,16 @@ const ChannelMembers = () => {
       <h2 className="mb-2 border-b pb-2 text-2xl font-medium">Members</h2>
       {activeChannelMemberList.length ? (
         <ul>
-          {activeChannelMemberList.map((m) => {
+          {activeChannelMemberList.map((member) => {
             return (
-              <li key={m.id}>
-                {'user' in m && m.user !== null ? (
+              <li key={member.id}>
+                {member.type === 'user' ? (
                   <ChannelMember
-                    member={m}
-                    isActive={activeUserId === m.user.id}
+                    member={member}
+                    isActive={activeUserId === member.member.id}
                   />
                 ) : (
-                  <ChannelMemberBot member={m} />
+                  <ChannelMemberBot member={member} />
                 )}
               </li>
             );

@@ -37,16 +37,11 @@ const ChatMessage = (props: Props) => {
   const member = getMemberFromMemberList(
     activeChannelMemberList,
     channelMemberId,
+    'user',
   );
 
   if (member === undefined) {
-    console.error('Member not found');
-    return;
-  }
-
-  // Type guard to ensure we have a user membership
-  if (!('user' in member)) {
-    console.error('Expected user membership but got different membership type');
+    console.error('User member not found');
     return null;
   }
 
@@ -59,12 +54,12 @@ const ChatMessage = (props: Props) => {
       <div>
         <Avatar>
           <AvatarImage src="" />
-          <AvatarFallback>{getInitials(member.user.name)}</AvatarFallback>
+          <AvatarFallback>{getInitials(member.member.name)}</AvatarFallback>
         </Avatar>
       </div>
       <div className="relative flex-1">
         <div className="mb-1 text-sm">
-          <span className="pr-1 font-semibold">{member.user.name}</span>
+          <span className="pr-1 font-semibold">{member.member.name}</span>
           <span className="text-xs text-gray-400" title={formatDate(createdAt)}>
             <TimeAgo datetime={createdAt} live={false} />
           </span>

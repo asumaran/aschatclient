@@ -18,20 +18,15 @@ const BotMessage = (props: Props) => {
     message: { channelMemberId, createdAt, content },
     activeChannelMemberList,
   } = props;
-  // Get author
+
   const membership = getMemberFromMemberList(
-    activeChannelMemberList, // Esto deberia retornar el bot tambien.
+    activeChannelMemberList,
     channelMemberId,
+    'bot',
   );
 
   if (!membership) {
     console.error('Bot member not found');
-    return null;
-  }
-
-  // Type guard to ensure we have a bot membership
-  if (!('bot' in membership)) {
-    console.error('Expected bot membership but got user membership');
     return null;
   }
 
@@ -40,12 +35,12 @@ const BotMessage = (props: Props) => {
       <div>
         <Avatar>
           <AvatarImage src="" />
-          <AvatarFallback>{getInitials(membership.bot.name)}</AvatarFallback>
+          <AvatarFallback>{getInitials(membership.member.name)}</AvatarFallback>
         </Avatar>
       </div>
       <div className="flex-1">
         <div className="mb-1 text-sm">
-          <span className="pr-1 font-semibold">{membership.bot.name}</span>
+          <span className="pr-1 font-semibold">{membership.member.name}</span>
           <span className="text-xs text-gray-400" title={formatDate(createdAt)}>
             <TimeAgo datetime={createdAt} live={false} />
           </span>

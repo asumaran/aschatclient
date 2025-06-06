@@ -6,16 +6,24 @@ interface BaseMemberShip {
   channelId: number;
 }
 
-// User membership with email
-interface UserMemberShip extends BaseMemberShip {
-  userId: number;
-  user: { id: number; name: string; email: string };
+// User membership with discriminated union
+export interface UserMemberShip extends BaseMemberShip {
+  type: 'user';
+  member: {
+    id: number;
+    name: string;
+    email: string;
+  };
 }
 
-// Bot membership without email
-interface BotMemberShip extends BaseMemberShip {
-  botId: number;
-  bot: { id: number; name: string };
+// Bot membership with discriminated union
+export interface BotMemberShip extends BaseMemberShip {
+  type: 'bot';
+  member: {
+    id: number;
+    name: string;
+    isActive: boolean;
+  };
 }
 
 // Union type for MemberShip

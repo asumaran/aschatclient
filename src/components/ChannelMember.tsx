@@ -1,4 +1,4 @@
-import { MemberShip, useChatContext } from '@/useChatContext';
+import { UserMemberShip, useChatContext } from '@/useChatContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { leaveChannel } from '@/api';
 
@@ -6,7 +6,7 @@ const ChannelMember = ({
   member,
   isActive,
 }: {
-  member: MemberShip;
+  member: UserMemberShip;
   isActive: boolean;
 }) => {
   const { activeChannelId, activeUserId } = useChatContext();
@@ -42,17 +42,11 @@ const ChannelMember = ({
     }
   }
 
-  // Type guard to ensure we have a user membership
-  if (!('user' in member)) {
-    console.error('Expected user membership but got different membership type');
-    return null;
-  }
-
   return (
     <div className="rounded-sm p-2 pt-0 pb-0 hover:bg-gray-100">
       <span className={isActive ? 'font-bold' : ''}>
-        <span className="text-sm" title={member.user.email}>
-          {member.user.name}
+        <span className="text-sm" title={member.member.email}>
+          {member.member.name}
         </span>
       </span>
       {isActive ? (

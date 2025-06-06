@@ -27,6 +27,12 @@ const NotAChannelMember = () => {
 
   function handleClick(e: React.FormEvent<HTMLButtonElement>) {
     e.preventDefault();
+
+    if (activeChannelId === undefined || activeUserId === undefined) {
+      console.error('Active channel ID or user ID is undefined');
+      return;
+    }
+
     mutation.mutate({ channelId: activeChannelId, memberId: activeUserId });
   }
 
