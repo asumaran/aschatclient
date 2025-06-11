@@ -6,6 +6,7 @@ import { Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { formatDate, getInitials } from '@/utils/utils';
+import { memo } from 'react';
 
 interface Props {
   message: ChannelMessage;
@@ -65,4 +66,4 @@ const ChatMessage = (props: Props) => {
   );
 };
 
-export default ChatMessage;
+export default memo(ChatMessage);

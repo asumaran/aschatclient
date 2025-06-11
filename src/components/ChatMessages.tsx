@@ -1,12 +1,35 @@
 import { ChannelMessage, getChannelMessages } from '@/api';
 import ChatMessage from './ChatMessage';
-import { useChatContext } from '@/useChatContext';
+import {
+  BotMemberShip,
+  useChatContext,
+  UserMemberShip,
+} from '@/useChatContext';
 import { useQuery } from '@tanstack/react-query';
 import BotMessage from './BotMessage';
-import { getMemberFromMemberList } from '@/utils/utils';
+
+// Simple cache: { memberId: member }
+let userMemberCache: { [memberId: number]: UserMemberShip } = {};
+let botMemberCache: { [memberId: number]: BotMemberShip } = {};
+let cacheChannelId: number | undefined;
 
 const ChatMessages = () => {
   const { activeChannelId, activeChannelMemberList } = useChatContext();
+
+  // Build cache if channel changed, build complete cache upfront for stable references
+  if (cacheChannelId !== activeChannelId) {
+    userMemberCache = {};
+    botMemberCache = {};
+    cacheChannelId = activeChannelId;
+    // Build complete cache to ensure stable object references
+    activeChannelMemberList.forEach((member) => {
+      if (member.type === 'user') {
+        userMemberCache[member.id] = member;
+      } else if (member.type === 'bot') {
+        botMemberCache[member.id] = member;
+      }
+    });
+  }
 
   const { data: messages = [] } = useQuery<ChannelMessage[]>({
     queryKey: ['messages', activeChannelId],
@@ -24,26 +47,14 @@ const ChatMessages = () => {
 
   const messagesArr = messages.map((m) => {
     if (m.type === 'bot') {
-      return (
-        <BotMessage
-          key={m.id}
-          message={m}
-          activeChannelMemberList={activeChannelMemberList}
-        />
-      );
-    } else {
-      const member = getMemberFromMemberList(
-        activeChannelMemberList,
-        m.channelMemberId,
-        'user',
-      );
-
-      if (member === undefined) {
-        console.error('User member not found');
-        return null;
-      }
-
+      const member = botMemberCache[m.channelMemberId];
+      return <BotMessage key={m.id} message={m} member={member} />;
+    } else if (m.type === 'user') {
+      const member = userMemberCache[m.channelMemberId];
       return <ChatMessage key={m.id} message={m} member={member} />;
+    } else {
+      console.error('Unknown message type:', m.type);
+      return null;
     }
   });
 
