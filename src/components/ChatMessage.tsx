@@ -1,24 +1,20 @@
 import { ChannelMessage, deleteMessage } from '@/api';
-import { MemberShip } from '@/useChatContext';
+import { UserMemberShip } from '@/useChatContext';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import TimeAgo from 'timeago-react';
 import { Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  formatDate,
-  getInitials,
-  getMemberFromMemberList,
-} from '@/utils/utils';
+import { formatDate, getInitials } from '@/utils/utils';
 
 interface Props {
   message: ChannelMessage;
-  activeChannelMemberList: MemberShip[];
+  member: UserMemberShip;
 }
 const ChatMessage = (props: Props) => {
   const {
-    activeChannelMemberList,
-    message: { id: messageId, channelMemberId, content, createdAt, channelId },
+    message: { id: messageId, content, createdAt, channelId },
+    member,
   } = props;
 
   const queryClient = useQueryClient();
@@ -33,17 +29,6 @@ const ChatMessage = (props: Props) => {
       console.error('Error deleting message:', error);
     },
   });
-
-  const member = getMemberFromMemberList(
-    activeChannelMemberList,
-    channelMemberId,
-    'user',
-  );
-
-  if (member === undefined) {
-    console.error('User member not found');
-    return null;
-  }
 
   function handleDeleteClick() {
     deleteMessageMutation.mutate(messageId);

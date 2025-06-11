@@ -3,6 +3,7 @@ import ChatMessage from './ChatMessage';
 import { useChatContext } from '@/useChatContext';
 import { useQuery } from '@tanstack/react-query';
 import BotMessage from './BotMessage';
+import { getMemberFromMemberList } from '@/utils/utils';
 
 const ChatMessages = () => {
   const { activeChannelId, activeChannelMemberList } = useChatContext();
@@ -21,23 +22,32 @@ const ChatMessages = () => {
     refetchIntervalInBackground: false, // Only poll when window is in focus
   });
 
-  return messages.length
-    ? messages.map((m, i) => {
-        return m.type === 'bot' ? (
-          <BotMessage
-            key={i}
-            message={m}
-            activeChannelMemberList={activeChannelMemberList}
-          />
-        ) : (
-          <ChatMessage
-            key={i}
-            message={m}
-            activeChannelMemberList={activeChannelMemberList}
-          />
-        );
-      })
-    : 'No messages';
+  const messagesArr = messages.map((m) => {
+    if (m.type === 'bot') {
+      return (
+        <BotMessage
+          key={m.id}
+          message={m}
+          activeChannelMemberList={activeChannelMemberList}
+        />
+      );
+    } else {
+      const member = getMemberFromMemberList(
+        activeChannelMemberList,
+        m.channelMemberId,
+        'user',
+      );
+
+      if (member === undefined) {
+        console.error('User member not found');
+        return null;
+      }
+
+      return <ChatMessage key={m.id} message={m} member={member} />;
+    }
+  });
+
+  return messagesArr.length ? messagesArr : 'No messages';
 };
 
 export default ChatMessages;
