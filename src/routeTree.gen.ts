@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root';
+import { Route as SignupImport } from './routes/signup';
 import { Route as SignoutImport } from './routes/signout';
 import { Route as ChatImport } from './routes/chat';
 import { Route as AboutImport } from './routes/about';
 import { Route as IndexImport } from './routes/index';
 
 // Create/Update Routes
+
+const SignupRoute = SignupImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any);
 
 const SignoutRoute = SignoutImport.update({
   id: '/signout',
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignoutImport;
       parentRoute: typeof rootRoute;
     };
+    '/signup': {
+      id: '/signup';
+      path: '/signup';
+      fullPath: '/signup';
+      preLoaderRoute: typeof SignupImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute;
   '/chat': typeof ChatRoute;
   '/signout': typeof SignoutRoute;
+  '/signup': typeof SignupRoute;
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +106,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute;
   '/chat': typeof ChatRoute;
   '/signout': typeof SignoutRoute;
+  '/signup': typeof SignupRoute;
 }
 
 export interface FileRoutesById {
@@ -99,14 +115,15 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute;
   '/chat': typeof ChatRoute;
   '/signout': typeof SignoutRoute;
+  '/signup': typeof SignupRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '/' | '/about' | '/chat' | '/signout';
+  fullPaths: '/' | '/about' | '/chat' | '/signout' | '/signup';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/about' | '/chat' | '/signout';
-  id: '__root__' | '/' | '/about' | '/chat' | '/signout';
+  to: '/' | '/about' | '/chat' | '/signout' | '/signup';
+  id: '__root__' | '/' | '/about' | '/chat' | '/signout' | '/signup';
   fileRoutesById: FileRoutesById;
 }
 
@@ -115,6 +132,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute;
   ChatRoute: typeof ChatRoute;
   SignoutRoute: typeof SignoutRoute;
+  SignupRoute: typeof SignupRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ChatRoute: ChatRoute,
   SignoutRoute: SignoutRoute,
+  SignupRoute: SignupRoute,
 };
 
 export const routeTree = rootRoute
@@ -137,7 +156,8 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/chat",
-        "/signout"
+        "/signout",
+        "/signup"
       ]
     },
     "/": {
@@ -151,6 +171,9 @@ export const routeTree = rootRoute
     },
     "/signout": {
       "filePath": "signout.tsx"
+    },
+    "/signup": {
+      "filePath": "signup.tsx"
     }
   }
 }

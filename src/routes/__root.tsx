@@ -21,6 +21,9 @@ function RootComponent() {
           </Link>{' '}
           <Link to="/about" className="[&.active]:font-bold">
             About
+          </Link>{' '}
+          <Link to="/signup" className="[&.active]:font-bold">
+            Sign up
           </Link>
         </div>
         <div className="p-2">

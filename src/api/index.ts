@@ -114,6 +114,22 @@ export async function signIn(email: string, password: string) {
   }
 }
 
+export async function signUp(email: string, password: string, name: string) {
+  const response = await fetch(apiUrl('/auth/signup'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password, name }),
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const res = await response.json();
+    console.error('Error sign up');
+    throw new Error(res.message);
+  }
+}
+
 export async function deleteMessage(messageId: number) {
   const response = await fetch(apiUrl(`/messages/${messageId}`), {
     method: 'DELETE',
