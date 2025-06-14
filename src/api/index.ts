@@ -41,6 +41,11 @@ export async function joinChannel(userId: number, channelId: number) {
   }
 }
 
+export interface MentionData {
+  memberId: number;
+  name: string;
+}
+
 export interface ChannelMessage {
   channelId: number;
   channelMemberId: number;
@@ -64,6 +69,7 @@ export async function sendMessage(
   content: string,
   channelId: number,
   channelMemberId: number,
+  mentions?: MentionData[],
 ) {
   const response = await fetch(apiUrl('messages'), {
     method: 'POST',
@@ -72,6 +78,7 @@ export async function sendMessage(
       content,
       channelId,
       channelMemberId,
+      mentions,
     }),
   });
 
